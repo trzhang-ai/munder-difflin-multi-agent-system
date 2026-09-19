@@ -10,3 +10,12 @@ __pycache__/
 
 # macOS metadata
 .DS_Store
+
+# Generated database files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Keep CSV data eligible for version control
+!*.csv
