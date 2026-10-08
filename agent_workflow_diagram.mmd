@@ -1,0 +1,57 @@
+---
+config:
+  layout: elk
+---
+flowchart LR
+    customer(["Customer request<br/>text + request date"])
+    reply(["Customer reply<br/>quote + confirmation + delivery date,<br/>or the reason the order can't be fulfilled"])
+    db[("SQLite database<br/>transactions, inventory, quotes,<br/>quote_requests, paper_supplies")]
+
+    subgraph ORCH["Orchestrator: rule-based coordinator (orchestrator.py)"]
+        direction TB
+        o1["1. Understand the request"]
+        o2{"2. In scope and<br/>details complete?"}
+        o3["3. Plan stock"]
+        o4{"4. Every item on time<br/>and affordable?"}
+        o5["5. Prepare the quote"]
+        o6["6. Confirm and record the order"]
+        o1 --> o2
+        o2 -- yes --> o3 --> o4
+        o4 -- yes --> o5 --> o6
+    end
+
+    subgraph RUA["RequestUnderstandingAgent"]
+        rua["<b>No tools</b><br/>LLM maps the request to catalog items,<br/>quantities, units and the deadline;<br/>output validated as ParsedItems"]
+    end
+
+    subgraph IMA["InventoryManagementAgent"]
+        direction TB
+        t1["<b>Tool: plan_replenishment</b><br/><i>stock check, reorder quantities,<br/>cash check, ship date vs. deadline</i><br/>Helpers: get_stock_level · get_cash_balance ·<br/>get_supplier_delivery_date"]
+        t2["<b>Tool: list_low_stock_items</b><br/><i>items at or below minimum stock</i><br/>Helper: get_all_inventory"]
+    end
+
+    subgraph QA["QuotingAgent"]
+        direction TB
+        t3["<b>Tool: calculate_quote</b><br/><i>price = cost × 1.25; bulk discount<br/>5% from $500, 10% from $2,000</i><br/>Helper: none (pricing.py)"]
+        t4["<b>Tool: find_similar_quotes</b><br/><i>past quotes for the same products,<br/>precedent for wording and discounts</i><br/>Helper: search_quote_history"]
+    end
+
+    subgraph OFA["OrderFulfillmentAgent"]
+        t5["<b>Tool: finalize_order</b><br/><i>record stock orders and sales once,<br/>report cash and asset change</i><br/>Helpers: create_transaction · generate_financial_report"]
+    end
+
+    customer --> o1
+    o1 <-->|"in: conversation + date<br/>out: ParsedItems"| rua
+    o3 <-->|"in: matched items + date<br/>out: per item stock, units to order,<br/>ship date, can_fulfill, reason"| t1
+    o5 <-->|"in: matched items<br/>out: lines, discount, total, rationale<br/>(no cost or margin)"| t3
+    o5 <-->|"in: item names<br/>out: past quotes, amounts masked"| t4
+    o6 <-->|"in: request id<br/>out: transaction ids,<br/>cash and asset change"| t5
+
+    o2 -- "no: out of scope, questions,<br/>or no catalog items" --> reply
+    o4 -- "no: late delivery or<br/>order too large" --> reply
+    o6 -- "quote + confirmation" --> reply
+
+    t1 -.->|read| db
+    t2 -.->|read| db
+    t4 -.->|read| db
+    t5 -.->|"write + read"| db

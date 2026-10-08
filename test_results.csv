@@ -1,0 +1,161 @@
+request_id,request_date,status,cash_balance,inventory_value,response
+1,2025-04-01,fulfilled,42405.47,7610.780000000001,"Customer Quote
+
+- Glossy paper: 200 sheets at $0.25 per sheet — $50.00
+- Cardstock: 100 sheets at $0.1875 per sheet — $18.75
+- Colored paper: 100 sheets at $0.125 per sheet — $12.50
+
+Subtotal: $81.25
+Bulk discount: $0.00 (orders of $500 or more receive a 5% discount)
+Final total: $81.25
+
+These are our standard list prices per sheet. No items were unpriced. The requested delivery date is April 15, 2025.
+
+Your order is confirmed. Expected delivery: 2025-04-01."
+2,2025-04-03,fulfilled,42546.72,7504.530000000001,"I can help you with purchasing paper and related supplies. The unrelated part of your request is outside our services. Customer quote
+
+- Poster paper: 500 sheets at $0.3125 per sheet — $156.25
+- Party streamers: 300 rolls at $0.0625 per roll — $18.75
+
+Subtotal: $175.00
+Bulk discount: $0.00 (0%)
+Final total: $175.00
+
+Prices are our standard list prices per sheet or roll. Orders of $500 or more receive a 5% bulk discount; this order total is below that threshold.
+
+Your order is confirmed. Expected delivery: 2025-04-04."
+3,2025-04-04,needs_clarification,42546.72,7504.530000000001,"We can't confirm this order yet. Which catalog paper product do you mean by ""printer paper"" (for example, Standard copy paper or A4 paper)?"
+4,2025-04-05,fulfilled,42614.0,7459.13,"Customer Quote
+
+- Cardstock: 500 sheets at $0.1875 per sheet — $93.75
+- A4 paper: 250 sheets at $0.0625 per sheet — $15.63
+
+Subtotal: $109.38
+Bulk discount: $0.00 (0%)
+Total: $109.38
+
+These are our standard list prices per sheet. The 5% bulk discount applies to orders of $500 or more, so it does not apply to this order.
+
+Your order is confirmed. Expected delivery: 2025-04-05."
+5,2025-04-05,fulfilled,42714.75,7392.13,"Customer Quote
+
+- Colored paper: 500 sheets at $0.125 per sheet — $62.50
+- Cardstock: 300 sheets at $0.1875 per sheet — $56.25
+- Decorative adhesive tape (washi tape): 200 rolls at $0.25 per roll — $50.00
+
+Subtotal: $168.75
+Bulk discount: $0.00 (orders of $500 or more receive a 5% discount)
+Final total: $168.75
+
+These are our standard list prices per sheet or roll. The requested delivery date is April 15, 2025.
+
+Your order is confirmed. Expected delivery: 2025-04-09."
+6,2025-04-06,fulfilled,42781.0,7345.13,"Customer Quote
+
+- Construction paper: 500 sheets at $0.0875 per sheet — line total $43.75
+- Standard copy paper: 300 sheets at $0.05 per sheet — line total $15.00
+- Cardstock: 200 sheets at $0.1875 per sheet — line total $37.50
+
+Subtotal: $96.25
+Bulk discount: $0.00 (orders of $500 or more receive a 5% bulk discount)
+Final total: $96.25
+
+Prices are our standard list prices per sheet. The requested quantities do not meet the $500 threshold for the bulk discount.
+
+Your order is confirmed. Expected delivery: 2025-04-07."
+7,2025-04-07,fulfilled,43311.6,6928.910000000001,"Customer quote:
+
+- Glossy paper: 500 sheets at $0.25 per sheet — list total $125.00
+- Matte paper: 1,000 sheets at $0.225 per sheet — list total $225.00
+- Large poster paper (24x36 inches): 300 pieces at $1.25 per piece — list total $375.00
+- Cardstock: 200 sheets at $0.1875 per sheet — list total $37.50
+
+Subtotal: $762.50
+Bulk discount (5%): −$38.12
+Total: $724.38
+
+These are standard list prices, and the requested quantity qualifies for a 5% bulk discount. Orders of $2,000 or more receive a 10% bulk discount.
+
+Your order is confirmed. Expected delivery: 2025-04-11."
+8,2025-04-07,fulfilled,43471.09999999999,6904.410000000001,"Customer quote
+
+- Glossy paper: 500 sheets at $0.25/sheet — list total $125.00
+- Matte paper: 1,000 sheets at $0.225/sheet — list total $225.00
+- Colored paper: 2,000 sheets at $0.125/sheet — list total $250.00
+- Recycled paper: 3,000 sheets at $0.10/sheet — list total $300.00
+
+Subtotal: $900.00
+Bulk discount (5%): −$45.00
+Final total: $855.00
+
+These are our standard list prices per sheet. The $900.00 subtotal qualifies for a 5% bulk discount, saving $45.00. Similar large paper orders commonly receive bulk-discount pricing.
+
+Your order is confirmed. Expected delivery: 2025-04-14."
+9,2025-04-07,fulfilled,43429.799999999996,6953.21,"These items aren't in our catalog: 50 packets of 100% recycled kraft paper envelopes. Here is what we can offer for the rest. Customer quote
+
+- A4 paper: 200 sheets at $0.0625 per sheet — list total: $12.50
+- Glossy paper: 100 sheets at $0.25 per sheet — list total: $25.00
+
+Subtotal: $37.50
+Bulk discount: $0.00 (orders of $500 or more receive a 5% bulk discount)
+Total: $37.50
+
+These are our standard list prices per sheet. The requested delivery date is April 10, 2025.
+
+Your order is confirmed. Expected delivery: 2025-04-07."
+13,2025-04-08,unfulfillable,43429.799999999996,6953.21,Unfortunately we can't deliver everything by 2025-04-10: A4 paper (earliest 2025-04-12). Would a later delivery date work for you?
+12,2025-04-08,fulfilled,43457.59999999999,6938.41,"Customer Quote
+
+- Cardstock: 200 sheets at $0.1875 per sheet — $37.50
+- Standard copy paper: 500 sheets at $0.05 per sheet — $25.00
+- Paper napkins: 100 pieces at $0.025 per piece — $2.50
+
+Subtotal: $65.00
+Bulk discount: $0.00 (0%)
+Final total: $65.00
+
+These are our standard list prices per sheet or piece. The order total is below the $500 threshold for the 5% bulk discount.
+
+Your order is confirmed. Expected delivery: 2025-04-12."
+10,2025-04-08,fulfilled,43552.649999999994,6879.610000000001,"Customer Quote
+
+- Glossy paper: 500 sheets at $0.25 per sheet — list total: $125.00
+- Cardstock: 300 sheets at $0.1875 per sheet — list total: $56.25
+
+Subtotal: $181.25
+Bulk discount: $0.00 (0%)
+Final total: $181.25
+
+These are our standard list prices per sheet. Orders of $500 or more receive a 5% bulk discount. The requested delivery date is April 15, 2025.
+
+Your order is confirmed. Expected delivery: 2025-04-12."
+11,2025-04-08,fulfilled,43591.149999999994,6879.610000000001,"Customer quote
+
+- Glossy paper: 500 sheets at $0.25 per sheet — $125.00
+- Matte paper: 300 sheets at $0.225 per sheet — $67.50
+
+Subtotal: $192.50
+Bulk discount: $0.00 (0%)
+Total: $192.50
+
+These are our standard list prices per sheet. Orders of $500 or more receive a 5% bulk discount; this order total does not meet that threshold. The requested delivery date is April 15, 2025.
+
+Your order is confirmed. Expected delivery: 2025-04-12."
+14,2025-04-09,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-15: A4 paper (earliest 2025-04-16); Poster paper (earliest 2025-04-16). Would a later delivery date work for you?
+15,2025-04-12,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-15: A4 paper (earliest 2025-04-19); Colored paper (earliest 2025-04-19); Cardstock (earliest 2025-04-19). Would a later delivery date work for you?
+16,2025-04-13,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-15: A4 paper (earliest 2025-04-17). Would a later delivery date work for you?
+17,2025-04-14,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-15: A4 paper (earliest 2025-04-18); Colored paper (earliest 2025-04-18); Paper napkins (earliest 2025-04-21); Paper cups (earliest 2025-04-18). Would a later delivery date work for you?
+18,2025-04-14,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-15: Cardstock (earliest 2025-04-18); Standard copy paper (earliest 2025-04-18). Would a later delivery date work for you?
+19,2025-04-15,unfulfillable,43591.149999999994,6879.610000000001,Unfortunately we can't deliver everything by 2025-04-20: Glossy paper (earliest 2025-04-22); Matte paper (earliest 2025-04-22). Would a later delivery date work for you?
+20,2025-04-17,fulfilled,43891.83,6813.31,"These items aren't in our catalog: 10,000 tickets. Here is what we can offer for the rest. Customer quote:
+
+- Flyers — 5,000 pieces at $0.1875 each: $937.50
+- Poster paper — 2,000 sheets at $0.3125 each: $625.00
+
+Subtotal: $1,562.50
+Bulk discount (5%): −$78.12
+Final total: $1,484.38
+
+Prices are standard list prices per piece or sheet. Your subtotal qualifies for a 5% bulk discount, saving $78.12. Orders of $2,000 or more receive a 10% bulk discount.
+
+Your order is confirmed. Expected delivery: 2025-04-24."

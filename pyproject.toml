@@ -10,3 +10,8 @@ dependencies = [
     "smolagents>=1.26.0",
     "sqlalchemy>=2.0.54",
 ]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]

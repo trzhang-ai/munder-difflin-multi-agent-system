@@ -126,7 +126,7 @@ paper_supplies = [
 
 
 def generate_sample_inventory(
-    paper_supplies: list, coverage: float = 0.4, seed: int = 137
+    paper_supplies: list, coverage: float = 1.0, seed: int = 137
 ) -> pd.DataFrame:
     """
     Generate inventory for exactly a specified percentage of items from the full paper supply list.
@@ -311,6 +311,12 @@ def init_database(db_engine: Engine, seed: int = 137) -> Engine:
 
         # Save the inventory reference table
         inventory_df.to_sql("inventory", db_engine, if_exists="replace", index=False)
+
+        # Snapshot the catalog as created: every item (coverage=1.0) with its
+        # category, unit price and minimum stock level. request_schema reads it.
+        inventory_df[
+            ["item_name", "category", "unit_price", "min_stock_level"]
+        ].to_sql("paper_supplies", db_engine, if_exists="replace", index=False)
 
         return db_engine
 
@@ -713,7 +719,7 @@ def search_quote_history(search_terms: List[str], limit: int = 5) -> List[Dict]:
 def run_test_scenarios():
 
     print("Initializing Database...")
-    init_database()
+    init_database(db_engine)
     try:
         quote_requests_sample = pd.read_csv("quote_requests_sample.csv")
         quote_requests_sample["request_date"] = pd.to_datetime(
@@ -738,6 +744,12 @@ def run_test_scenarios():
     ############
     ############
     ############
+    # Imported here: the agent modules import this file, and request_schema
+    # reads the catalog table that init_database has just created.
+    from model_config import create_model
+    from orchestrator import Orchestrator
+
+    orchestrator = Orchestrator(model=create_model())
 
     results = []
     for idx, row in quote_requests_sample.iterrows():
@@ -760,13 +772,28 @@ def run_test_scenarios():
         ############
         ############
 
-        # response = call_your_multi_agent_system(request_with_date)
+        # Every sample request comes from a different customer.
+        orchestrator.start_conversation()
+        try:
+            result = orchestrator.process_customer_message(
+                request_with_date, request_date, request_id=idx + 1
+            )
+            status, response = result["status"], result["reply"]
+        except Exception as e:
+            # Keep the run going; the customer never sees internal errors.
+            print(f"ERROR handling request {idx+1}: {type(e).__name__}: {e}")
+            status = "error"
+            response = (
+                "We're sorry, we couldn't process your request right now. "
+                "Please contact us again shortly."
+            )
 
         # Update state
         report = generate_financial_report(request_date)
         current_cash = report["cash_balance"]
         current_inventory = report["inventory_value"]
 
+        print(f"Status: {status}")
         print(f"Response: {response}")
         print(f"Updated Cash: ${current_cash:.2f}")
         print(f"Updated Inventory: ${current_inventory:.2f}")
@@ -775,6 +802,7 @@ def run_test_scenarios():
             {
                 "request_id": idx + 1,
                 "request_date": request_date,
+                "status": status,
                 "cash_balance": current_cash,
                 "inventory_value": current_inventory,
                 "response": response,
