@@ -38,8 +38,8 @@ class OrchestratorResult(TypedDict):
 def run_tool(agent, task: str, tool_name: str) -> Any:
     '''
     Run an agent and return the raw output of its tool call, or None.
-    The agent's final answer is model-written text; the tool output 
-    is the exact python value, so numbers never pass through the model.
+    Read the Python tool result directly instead of parsing the agent's
+    model-generated final answer.
     '''
     output = None
     for event in agent.run(task, stream=True, reset=True):
@@ -56,8 +56,8 @@ class Orchestrator:
         self.inventory_management_agent = InventoryManagementAgent(model=model)
         self.quoting_agent = QuotingAgent(model=model)
         self.order_fulfillment_agent = OrderFulfillmentAgent(model=model)
-        # One-shot test requests have no customer to reply "yes", so accept
-        # every feasible quote; set False to stop at the quote instead.
+        # Batch mode accepts feasible quotes automatically. Interactive callers
+        # set False and explicitly confirm a quoted order.
         self.auto_confirm = auto_confirm
         self.conversation: list[ConversationMessage] = []
         self.orders: dict[int, dict] = {}
@@ -151,8 +151,7 @@ class Orchestrator:
                 questions.append(question)
         if parsed.delivery_date_question:
             questions.append(parsed.delivery_date_question)
-        # Ask everything at once; a one-shot request gets no second turn,
-        # so the reply must also explain why the order is not confirmed yet.
+        # Group outstanding questions and explain why the order is not confirmed.
         if questions:
             reply = "We can't confirm this order yet. " + " ".join(questions)
             return respond('needs_clarification', prefix + reply)
@@ -213,8 +212,8 @@ class Orchestrator:
         '''Record a quoted order; order date is YYYY-MM-DD.'''
         order = self.orders[request_id]
         confirm_order(request_id, order['plan'], order['quote'], order_date)
-        # finalize_order records an order only once, so the direct call is a 
-        # safe fallback when the agent does not call the tool.
+        # Reuse the stored entry's transaction IDs if the worker has already
+        # finalized it. A new confirmation replaces that entry.
         result = run_tool(
             self.order_fulfillment_agent,
             f'Record confirmed order {request_id}.',
@@ -267,7 +266,6 @@ class Orchestrator:
             "Unfortunately we can't accommodate an order of this size right now. "
             "A smaller quantity may be possible; let us know if you'd like a revised quote."
         )
-
 
 
 

@@ -44,14 +44,6 @@ MatchStatus = Literal[
     'needs_clarification'
 ]
 
-Mood = Literal[
-    'happy',
-    'miserable',
-    'pissed off',
-    'sad',
-    'stressed',
-]
-
 class RequestedItem(BaseModel):
     '''One requested product as extracted from the conversation.'''
     model_config = ConfigDict(
@@ -156,7 +148,7 @@ class RequestedItem(BaseModel):
 
 
 class ParsedItems(BaseModel):
-    '''The complete current request: scope, mood, items and deadline.'''
+    '''The complete current request: scope, items and deadline.'''
     model_config = ConfigDict(extra='forbid')
     message_scope: Literal[
         'in_scope',
@@ -169,14 +161,6 @@ class ParsedItems(BaseModel):
             "and relevant follow-ups; out_of_scope for "
             "unrelated requests; mixed when both are present."
         )
-    )
-    mood: Mood | None = Field(
-        default=None,
-        description=(
-            'Customer mood inferred from the purchasing conversation '
-            'available so far. Only meaningful when message_scope is '
-            'in_scope. Return null for other scopes or insufficient evidence.'
-        ),
     )
     items: list[RequestedItem] = Field(
         description=(
@@ -192,11 +176,7 @@ class ParsedItems(BaseModel):
     @model_validator(mode='after')
     def check_request(self) -> Self:
 
-        '''Mood only for in-scope messages; ask for a missing deadline.'''
-        if self.message_scope != 'in_scope' and self.mood is not None:
-            raise ValueError(
-                'mood must be null unless message_scope is in_scope.'
-            )
+        '''Require a deadline or a clarification question for active items.'''
 
         if self.message_scope == 'out_of_scope':
             return self

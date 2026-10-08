@@ -1,7 +1,7 @@
 '''Deterministic customer pricing.
 
 The catalog unit_price is our cost for ONE catalog unit (sheet, piece or roll):
-project_starter buys stock and values inventory at unit_price. A quote marks
+The ledger buys stock and values inventory at unit_price. A quote marks
 that cost up and may apply a bulk discount, but never falls below cost.
 
 MARKUP and DISCOUNT_TIERS are business assumptions, not values fitted to

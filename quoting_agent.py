@@ -1,7 +1,7 @@
 import re
 from smolagents import ToolCallingAgent, OpenAIServerModel, tool
 from pricing import price_quote
-from project_starter import search_quote_history
+from operations import search_quote_history
 
 
 # Historical totals are unreliable, so their amounts are hidden from the agent.
@@ -17,7 +17,7 @@ def calculate_quote(parsed: dict) -> dict:
     total, and a customer-facing rationale.
 
     Args:
-        parsed: Structured request with message_scope, mood, items,
+        parsed: Structured request with message_scope, items,
             delivery_by, and delivery_date_question.
     """
     return price_quote(parsed).for_customer()
@@ -54,9 +54,6 @@ def find_similar_quotes(item_names: list[str], limit_per_item: int = 2) -> list[
             matches.append({
                 'matched_item': name,
                 'original_request': record['original_request'],
-                'job_type': record['job_type'],
-                'order_size': record['order_size'],
-                'event_type': record['event_type'],
                 'quote_explanation': _DOLLAR_AMOUNT.sub('$[amount]', explanation),
             })
     return matches

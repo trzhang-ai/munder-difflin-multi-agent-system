@@ -4,7 +4,7 @@ from datetime import datetime
 from pricing import catalog_unit, convert_quantity
 from smolagents import OpenAIServerModel, ToolCallingAgent, tool
 from request_schema import ParsedItems, paper_supplies
-from project_starter import (
+from operations import (
     get_all_inventory,
     get_stock_level,
     get_cash_balance,
@@ -43,7 +43,7 @@ def plan_replenishment(parsed: dict, as_of_date: str) -> list[dict]:
     customer's deadline. Planning only; no transactions are recorded.
 
     Args:
-        parsed: Structured request with message_scope, mood, items,
+        parsed: Structured request with message_scope, items,
             delivery_by, and delivery_date_question.
         as_of_date: Request date in MM/DD/YY format.
     """

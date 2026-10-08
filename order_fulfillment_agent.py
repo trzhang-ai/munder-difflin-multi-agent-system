@@ -1,5 +1,5 @@
 from pricing import Quote
-from project_starter import create_transaction, generate_financial_report
+from operations import create_transaction, generate_financial_report
 from smolagents import ToolCallingAgent, OpenAIServerModel, tool
 
 
@@ -28,9 +28,9 @@ def confirm_order(
 @tool
 def finalize_order(request_id: int) -> dict:
     '''
-    Record the stock orders and sales of a confirmed order, then report the resulting 
-    cash and total asset changes. Quantities, prices and the date come from the stored 
-    order; an order is recorded only once.
+    Record stock orders and sales, then report cash and total asset changes.
+    Quantities, prices and the date come from the stored order. Repeat calls
+    against the same stored entry reuse its recorded transaction IDs.
 
     Args:
         request_id: Identifier of the confirmed order given in the task.
@@ -41,8 +41,7 @@ def finalize_order(request_id: int) -> dict:
     if order['transaction_ids'] is not None:
         return {'status': 'already_recorded', 'transaction_ids': order['transaction_ids']}
     date = order['order_date']
-    # Build every transaction before writing, so a bad field cannot leave a
-    # half-recorded order that a retry would record again.
+    # Prepare entries before writing; database writes are separate transactions.
     entries = [
         (row['item_name'], 'stock_orders', int(row['ordered_units']),
          round(row['ordered_units'] * row['unit_price'], 2))
